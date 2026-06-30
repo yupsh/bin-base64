@@ -57,8 +57,17 @@ func newCommand(version string, stdin io.Reader, stdout io.Writer, fs afero.Fs) 
 		ExitErrHandler: func(context.Context, *cli.Command, error) {},
 		Flags: []cli.Flag{
 			&cli.BoolFlag{Name: flagDecode, Aliases: []string{"d"}, Usage: "decode data"},
-			&cli.BoolFlag{Name: flagIgnoreGarbage, Aliases: []string{"i"}, Usage: "when decoding, ignore non-alphabet characters"},
-			&cli.IntFlag{Name: flagWrap, Aliases: []string{"w"}, Value: 76, Usage: "wrap encoded lines after COLS character; use 0 to disable wrapping"},
+			&cli.BoolFlag{
+				Name:    flagIgnoreGarbage,
+				Aliases: []string{"i"},
+				Usage:   "when decoding, ignore non-alphabet characters",
+			},
+			&cli.IntFlag{
+				Name:    flagWrap,
+				Aliases: []string{"w"},
+				Value:   76,
+				Usage:   "wrap encoded lines after COLS character; use 0 to disable wrapping",
+			},
 		},
 		Action: action(stdin, stdout, fs),
 	}
