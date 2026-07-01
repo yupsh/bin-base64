@@ -11,6 +11,8 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
+const name = "base64"
+
 const (
 	flagDecode        = "decode"
 	flagIgnoreGarbage = "ignore-garbage"
@@ -39,7 +41,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 	cmd.Writer = stdout
 	cmd.ErrWriter = stderr
 	if err := cmd.Run(context.Background(), args); err != nil {
-		_, _ = fmt.Fprintf(stderr, "base64: %v\n", err)
+		_, _ = fmt.Fprintf(stderr, name+": %v\n", err)
 		return 1
 	}
 	return 0
@@ -47,7 +49,7 @@ func run(version string, args []string, stdin io.Reader, stdout, stderr io.Write
 
 func newCommand(version string, stdin io.Reader, stdout io.Writer, fs afero.Fs) *cli.Command {
 	return &cli.Command{
-		Name:            "base64",
+		Name:            name,
 		Version:         version,
 		Usage:           "base64 encode/decode data and print on the standard output",
 		UsageText:       usageText,
